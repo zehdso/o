@@ -34,9 +34,15 @@
     #password:focus {
       border-color: #555;
     }
-#password.correct {
-  border: 2px solid #000000;
-}
+
+    #password.correct {
+      border: 2px solid #000000;
+    }
+
+    #password.incorrect {
+      border: 2px solid #ff0000;
+    }
+
     #password::placeholder {
       color: #999;
     }
@@ -48,7 +54,7 @@
 <input
   id="password"
   type="password"
-  maxlength="8"
+  maxlength="3"
   placeholder="Password"
   autocomplete="off"
 >
@@ -60,9 +66,11 @@ const passwordInput = document.getElementById("password");
 
 passwordInput.addEventListener("input", async () => {
 
+  // Reset border while typing
+  passwordInput.classList.remove("correct", "incorrect");
+
   // Wait until exactly 8 characters are entered
-  if (passwordInput.value.length !== 8) {
-    passwordInput.classList.remove("correct");
+  if (passwordInput.value.length !== 3) {
     return;
   }
 
@@ -77,7 +85,9 @@ passwordInput.addEventListener("input", async () => {
       })
     });
 
+    // Incorrect password
     if (!response.ok) {
+      passwordInput.classList.add("incorrect");
       return;
     }
 
