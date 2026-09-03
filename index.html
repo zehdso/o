@@ -54,7 +54,8 @@
 <input
   id="password"
   type="password"
-  maxlength="3"
+  maxlength="8"
+  autocomplete="new-password"
   placeholder="Password"
   autocomplete="off"
 >
@@ -70,7 +71,7 @@ passwordInput.addEventListener("input", async () => {
   passwordInput.classList.remove("correct", "incorrect");
 
   // Wait until exactly 8 characters are entered
-  if (passwordInput.value.length !== 3) {
+  if (passwordInput.value.length !== 8) {
     return;
   }
 
