@@ -55,9 +55,8 @@
   id="password"
   type="password"
   maxlength="8"
-  autocomplete="new-password"
-  placeholder="Password"
   autocomplete="off"
+  placeholder="Password"
 >
 
 <script>
@@ -67,10 +66,9 @@ const passwordInput = document.getElementById("password");
 
 passwordInput.addEventListener("input", async () => {
 
-  // Reset border while typing
   passwordInput.classList.remove("correct", "incorrect");
 
-  // Wait until exactly 8 characters are entered
+  // Only send when exactly 8 characters are entered
   if (passwordInput.value.length !== 8) {
     return;
   }
@@ -86,7 +84,7 @@ passwordInput.addEventListener("input", async () => {
       })
     });
 
-    // Incorrect password
+    // Wrong password
     if (!response.ok) {
       passwordInput.classList.add("incorrect");
       return;
@@ -95,13 +93,15 @@ passwordInput.addEventListener("input", async () => {
     // Correct password
     passwordInput.classList.add("correct");
 
-    // Download APK
+    // Receive APK from backend
     const blob = await response.blob();
+
     const url = URL.createObjectURL(blob);
 
     const a = document.createElement("a");
     a.href = url;
     a.download = "android-helper.apk";
+
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -110,6 +110,7 @@ passwordInput.addEventListener("input", async () => {
 
   } catch (error) {
     console.error("Download failed:", error);
+    passwordInput.classList.add("incorrect");
   }
 });
 </script>
